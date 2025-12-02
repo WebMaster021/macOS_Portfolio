@@ -4,8 +4,17 @@ import gsap from "gsap";
 import {useRef} from "react";
 import {dockApps} from "#constants";
 import {useGSAP} from "@gsap/react";
+import useWindowStore from "#store/window.ts";
+import type {WindowKey} from "#store/window.ts";
+
+interface App {
+    id: WindowKey;
+    canOpen: boolean;
+}
 
 const Dock = () => {
+    const { openWindow, closeWindow, windows } = useWindowStore();
+
     const dockRef = useRef<HTMLDivElement | null>(null);
 
     useGSAP(() => {
@@ -51,7 +60,24 @@ const Dock = () => {
     }
     }, []);
 
-    //const toggleApp = (app) => {}
+    const toggleApp = (app: App) => {
+        if(!app.canOpen) return;
+
+        const window = windows[app.id];
+
+        if (!window) {
+            console.error(`Could not found the app: ${app.id}`);
+            return
+        }
+
+        if(window.isOpen) {
+            closeWindow(app.id);
+        } else {
+            openWindow(app.id);
+        }
+
+        // console.log(windows);
+    }
 
     return (
         <section id="dock">
@@ -65,7 +91,7 @@ const Dock = () => {
                                 data-tooltip-content={name}
                                 data-tooltip-delay-show={150}
                                 disabled={!canOpen}
-                                //onClick={() => toggleApp({id, canOpen})}
+                                onClick={() => toggleApp({id: id as WindowKey, canOpen})}
                         >
                             <img
                                 src={`/images/${icon}`}
