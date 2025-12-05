@@ -1,10 +1,4 @@
-type NavLink = {
-    id: number;
-    name: string;
-    type: string;
-}
-
-const navLinks: NavLink[] = [
+const navLinks= [
     {
         id: 1,
         name: "Projects",
@@ -20,7 +14,7 @@ const navLinks: NavLink[] = [
         name: "Resume",
         type: "resume",
     },
-];
+] as const;
 
 const navIcons = [
     {
