@@ -5,5 +5,6 @@ import Finder from "#windows/Finder.tsx";
 import Text from "#windows/Text.tsx";
 import ImageWindowContent from "#windows/ImageWindowContent.tsx";
 import Contact from "#windows/Contact.tsx";
+import Photos from "#windows/Photos.tsx";
 
-export { Terminal, Safari, Resume, Finder, Text, ImageWindowContent, Contact };
+export { Terminal, Safari, Resume, Finder, Text, ImageWindowContent, Contact, Photos };
